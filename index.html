@@ -575,42 +575,61 @@ footer{background:var(--color-primary-dark);color:rgba(255,255,255,.72);padding:
   <svg viewBox="0 0 32 32" fill="currentColor"><path d="M16.02 3C9.4 3 4 8.4 4 15.02c0 2.4.66 4.63 1.8 6.55L4 29l7.62-1.75a11.9 11.9 0 004.4.84h.01c6.62 0 12.02-5.4 12.02-12.02C28.05 8.4 22.65 3 16.02 3zm0 21.86h-.01a9.9 9.9 0 01-4.5-1.08l-.32-.18-4.52 1.04 1.06-4.4-.2-.33a9.83 9.83 0 01-1.5-5.23c0-5.44 4.5-9.9 9.99-9.9 5.33 0 9.6 4.46 9.6 9.9 0 5.44-4.5 9.9-9.9 9.9zm5.42-7.4c-.3-.15-1.75-.86-2.02-.96-.27-.1-.47-.15-.66.15-.2.3-.76.96-.93 1.16-.17.2-.34.22-.63.07-.3-.15-1.24-.46-2.36-1.47-.87-.78-1.46-1.74-1.63-2.04-.17-.3-.02-.46.13-.6.13-.13.3-.34.44-.5.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.66-1.6-.9-2.2-.24-.57-.48-.5-.66-.5h-.56c-.2 0-.5.07-.77.37-.27.3-1 1-1 2.44s1.03 2.83 1.18 3.03c.15.2 2.02 3.1 4.9 4.34.68.3 1.22.47 1.63.6.68.22 1.3.19 1.8.11.55-.08 1.75-.72 2-1.4.24-.7.24-1.28.17-1.4-.07-.13-.26-.2-.56-.35z"/></svg>
 </a>
 
-<script>
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
+import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
+
+// TODO: mismo firebaseConfig que panel-colegios.html (mismo proyecto de Firebase)
+const FIREBASE_CONFIG = {
+  apiKey: "TU_API_KEY",
+  authDomain: "tu-proyecto.firebaseapp.com",
+  projectId: "tu-proyecto",
+  storageBucket: "tu-proyecto.appspot.com",
+  messagingSenderId: "000000000000",
+  appId: "1:000000000000:web:xxxxxxxxxxxxxxxx"
+};
+const COLLECTION = "colegios_landing";
+const DATABASE_ID = "landing-colegios"; // base de datos separada, distinta de la (default) de cobranzas
+const fbApp = initializeApp(FIREBASE_CONFIG);
+const db = getFirestore(fbApp, DATABASE_ID);
+
 /* =====================================================================
    CONFIGURACIÓN POR COLEGIO
    En producción, este bloque se genera por servidor según el subdominio
    (por ejemplo losandes.mejoratucole.com) o por dominio propio del colegio.
    ===================================================================== */
-const CONFIG = {
-  schoolName: "Colegio Beato",   // TODO: nombre real del colegio
-  initials: "B",
-  whatsappNumber: "51987654321",       // formato internacional sin "+"
-  whatsappMessage: "Hola, quisiera información sobre las vacantes del colegio.",
-  // Destino del formulario de admisión: usar un backend de formularios
-  // sin servidor (ver notas al final de la conversación), por ejemplo:
-  // Formspree -> "https://formspree.io/f/XXXXXXXX"
+/* =====================================================================
+   CONFIGURACIÓN — se carga en vivo desde Firestore (colección
+   `colegios_landing`, la misma que llena panel-colegios.html) según el
+   subdominio, en vez de estar escrita a mano en cada sitio.
+   Ej: losandes.mejoratucole.com -> lee el documento con id "losandes"
+   ===================================================================== */
+
+// Valores de respaldo: se usan si aún no hay conexión a la base de datos,
+// o mientras carga, para que la página nunca se vea rota.
+const FALLBACK_CONFIG = {
+  schoolName: "Tu Colegio",
+  initials: "TC",
+  whatsappNumber: "51987654321",
   formEndpoint: "https://formspree.io/f/REEMPLAZAR_CON_TU_ID",
-  // Paleta de marca de ESTE colegio (extraída de su escudo/logo).
-  // Cada colegio tiene su propio CONFIG — este bloque es lo único
-  // que cambia entre un sitio y otro.
-  colors: {
-    primary:       "#1333A2",
-    primaryDark:   "#0C2270",
-    secondary:     "#FAA835",
-    secondaryDark: "#C8862A"
-  }
+  colors: { primary:"#1B3A5C", primaryDark:"#12293F", secondary:"#E8A33D", secondaryDark:"#C9861F" }
 };
 
-document.getElementById('brandMark').textContent = CONFIG.initials;
-document.getElementById('brandName').textContent = CONFIG.schoolName;
-document.getElementById('footerBrandName').textContent = CONFIG.schoolName;
-document.title = CONFIG.schoolName + " — Educación con propósito";
+function getSlug(){
+  // 1) permite forzar un colegio para pruebas locales: index.html?colegio=losandes
+  const qs = new URLSearchParams(location.search).get('colegio');
+  if(qs) return qs;
+  // 2) en producción, el subdominio ES el identificador del colegio
+  //    losandes.mejoratucole.com -> "losandes"
+  const host = location.hostname.split('.');
+  if(host.length > 2) return host[0];
+  return null; // ej. localhost, o el dominio raíz sin subdominio
+}
 
-// --- WhatsApp flotante ---
-const wa = document.getElementById('waFloat');
-wa.href = `https://wa.me/${CONFIG.whatsappNumber}?text=${encodeURIComponent(CONFIG.whatsappMessage)}`;
+function initials(name){
+  return name.split(/\s+/).filter(Boolean).slice(0,2).map(w=>w[0]).join('').toUpperCase();
+}
 
-// --- Aplica la paleta de marca del colegio (sin selector visible) ---
 function applyPalette(c){
   const r = document.documentElement.style;
   r.setProperty('--color-primary', c.primary);
@@ -618,7 +637,42 @@ function applyPalette(c){
   r.setProperty('--color-secondary', c.secondary);
   r.setProperty('--color-secondary-dark', c.secondaryDark);
 }
-applyPalette(CONFIG.colors);
+
+function renderConfig(cfg){
+  applyPalette(cfg.colors);
+  document.getElementById('brandMark').textContent = cfg.initials || initials(cfg.schoolName);
+  document.getElementById('brandName').textContent = cfg.schoolName;
+  document.getElementById('footerBrandName').textContent = cfg.schoolName;
+  document.title = cfg.schoolName + " — Educación con propósito";
+  const wa = document.getElementById('waFloat');
+  wa.href = `https://wa.me/${cfg.whatsappNumber}?text=${encodeURIComponent('Hola, quisiera información sobre las vacantes del colegio.')}`;
+  window.CONFIG = cfg; // el formulario de admisión lo usa para saber a dónde enviar
+}
+
+async function loadConfig(){
+  renderConfig(FALLBACK_CONFIG); // primero pinta algo, para que no se vea vacío mientras carga
+
+  const slug = getSlug();
+  if(!slug || FIREBASE_CONFIG.apiKey === "TU_API_KEY") return; // sin subdominio o sin configurar aún: se queda con el fallback
+
+  try{
+    const snap = await getDoc(doc(db, COLLECTION, slug));
+    if(snap.exists()){
+      const row = snap.data();
+      renderConfig({
+        schoolName: row.nombre,
+        initials: initials(row.nombre),
+        whatsappNumber: row.whatsapp,
+        formEndpoint: row.formEndpoint,
+        colors: row.colors
+      });
+    }
+    // si no existe ningún colegio con ese slug, se queda con el FALLBACK_CONFIG ya pintado
+  }catch(e){
+    // sin conexión, reglas de Firestore mal configuradas, etc.: se queda con el FALLBACK_CONFIG ya pintado
+  }
+}
+loadConfig();
 
 // --- Envío del formulario de admisión ---
 const form = document.getElementById('admissionForm');
@@ -632,9 +686,10 @@ form.addEventListener('submit', async (e)=>{
   submitBtn.textContent = 'Enviando...';
 
   try{
+    const cfg = window.CONFIG || FALLBACK_CONFIG;
     const data = new FormData(form);
-    data.append('_subject', `Nueva solicitud de admisión — ${CONFIG.schoolName}`);
-    const res = await fetch(CONFIG.formEndpoint, {
+    data.append('_subject', `Nueva solicitud de admisión — ${cfg.schoolName}`);
+    const res = await fetch(cfg.formEndpoint, {
       method: 'POST',
       body: data,
       headers: { 'Accept': 'application/json' }
