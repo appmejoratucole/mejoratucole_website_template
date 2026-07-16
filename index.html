@@ -14,11 +14,11 @@
    CONFIGURACIÓN DE MARCA — esto es lo único que cambia por colegio
    ===================================================================== */
 :root{
-  /* --- paleta activa (por defecto: "Los Andes") --- */
-  --color-primary:      #1B3A5C; /* color principal: header, botones, títulos */
-  --color-primary-dark: #12293F;
-  --color-secondary:    #E8A33D; /* acento cálido: CTA, detalles */
-  --color-secondary-dark:#C9861F;
+  /* --- paleta activa: extraída del escudo del colegio --- */
+  --color-primary:      #1333A2; /* azul heráldico del escudo */
+  --color-primary-dark: #0C2270;
+  --color-secondary:    #FAA835; /* dorado del escudo */
+  --color-secondary-dark:#C8862A;
   --color-bg:           #F7F8FA;
   --color-surface:      #FFFFFF;
   --color-text:         #1C2430;
@@ -331,9 +331,9 @@ footer{background:var(--color-primary-dark);color:rgba(255,255,255,.72);padding:
       </div>
     </div>
     <div class="hero-card">
-      <h3>Así se ve tu colegio</h3>
-      <p>Esta plantilla cambia de identidad al instante. Elige una paleta de ejemplo — cada colegio tiene la suya.</p>
-      <div class="palette-picker" id="palettePicker"></div>
+      <h3>Admisión 2027 abierta</h3>
+      <p>Vacantes disponibles en Inicial, Primaria y Secundaria. Completa el formulario y te contactamos en menos de 24 horas.</p>
+      <a href="#admision" class="btn btn-primary" style="background:var(--color-secondary);">Ver requisitos</a>
     </div>
   </div>
 </section>
@@ -582,20 +582,23 @@ footer{background:var(--color-primary-dark);color:rgba(255,255,255,.72);padding:
    (por ejemplo losandes.mejoratucole.com) o por dominio propio del colegio.
    ===================================================================== */
 const CONFIG = {
-  schoolName: "Colegio Los Andes",
-  initials: "LA",
+  schoolName: "Colegio Beato",   // TODO: nombre real del colegio
+  initials: "B",
   whatsappNumber: "51987654321",       // formato internacional sin "+"
   whatsappMessage: "Hola, quisiera información sobre las vacantes del colegio.",
   // Destino del formulario de admisión: usar un backend de formularios
   // sin servidor (ver notas al final de la conversación), por ejemplo:
   // Formspree -> "https://formspree.io/f/XXXXXXXX"
   formEndpoint: "https://formspree.io/f/REEMPLAZAR_CON_TU_ID",
-  palettes: [
-    { name:"Los Andes",  primary:"#1B3A5C", primaryDark:"#12293F", secondary:"#E8A33D", secondaryDark:"#C9861F" },
-    { name:"Santa Rosa", primary:"#245A45", primaryDark:"#173A2C", secondary:"#D9663B", secondaryDark:"#B84E29" },
-    { name:"San Martín", primary:"#5B2A86", primaryDark:"#3E1C5E", secondary:"#3FB6A8", secondaryDark:"#2C8E82" },
-    { name:"Newton",     primary:"#0F3D5C", primaryDark:"#0A2A40", secondary:"#F2C14E", secondaryDark:"#D6A62E" }
-  ]
+  // Paleta de marca de ESTE colegio (extraída de su escudo/logo).
+  // Cada colegio tiene su propio CONFIG — este bloque es lo único
+  // que cambia entre un sitio y otro.
+  colors: {
+    primary:       "#1333A2",
+    primaryDark:   "#0C2270",
+    secondary:     "#FAA835",
+    secondaryDark: "#C8862A"
+  }
 };
 
 document.getElementById('brandMark').textContent = CONFIG.initials;
@@ -607,29 +610,15 @@ document.title = CONFIG.schoolName + " — Educación con propósito";
 const wa = document.getElementById('waFloat');
 wa.href = `https://wa.me/${CONFIG.whatsappNumber}?text=${encodeURIComponent(CONFIG.whatsappMessage)}`;
 
-// --- Selector de paleta (elemento de demostración) ---
-const picker = document.getElementById('palettePicker');
-function applyPalette(p){
+// --- Aplica la paleta de marca del colegio (sin selector visible) ---
+function applyPalette(c){
   const r = document.documentElement.style;
-  r.setProperty('--color-primary', p.primary);
-  r.setProperty('--color-primary-dark', p.primaryDark);
-  r.setProperty('--color-secondary', p.secondary);
-  r.setProperty('--color-secondary-dark', p.secondaryDark);
+  r.setProperty('--color-primary', c.primary);
+  r.setProperty('--color-primary-dark', c.primaryDark);
+  r.setProperty('--color-secondary', c.secondary);
+  r.setProperty('--color-secondary-dark', c.secondaryDark);
 }
-CONFIG.palettes.forEach((p, i)=>{
-  const b = document.createElement('button');
-  b.className = 'swatch' + (i===0 ? ' active' : '');
-  b.style.background = p.primary;
-  b.title = p.name;
-  b.setAttribute('aria-label', 'Paleta ' + p.name);
-  b.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M4 12l5 5L20 6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
-  b.addEventListener('click', ()=>{
-    applyPalette(p);
-    picker.querySelectorAll('.swatch').forEach(s=>s.classList.remove('active'));
-    b.classList.add('active');
-  });
-  picker.appendChild(b);
-});
+applyPalette(CONFIG.colors);
 
 // --- Envío del formulario de admisión ---
 const form = document.getElementById('admissionForm');
