@@ -318,32 +318,32 @@ footer{background:var(--color-primary-dark);color:rgba(255,255,255,.72);padding:
 <section class="hero" style="padding-top:96px;">
   <div class="container hero-inner">
     <div>
-      <span class="eyebrow" style="color:var(--color-secondary);">Educación inicial · primaria · secundaria</span>
-      <h1>Formamos personas, no solo alumnos.</h1>
-      <p class="lede">Un colegio pensado para que cada estudiante descubra su propio camino, con acompañamiento cercano a las familias desde el primer día.</p>
+      <span class="eyebrow" id="heroEyebrow" style="color:var(--color-secondary);">Educación inicial · primaria · secundaria</span>
+      <h1 id="heroTitle">Formamos personas, no solo alumnos.</h1>
+      <p class="lede" id="heroSubtitle">Un colegio pensado para que cada estudiante descubra su propio camino, con acompañamiento cercano a las familias desde el primer día.</p>
       <div class="hero-actions">
-        <a href="#admision" class="btn btn-primary">Solicitar vacante</a>
-        <a href="#nosotros" class="btn btn-outline">Conocer el colegio</a>
+        <a href="#admision" class="btn btn-primary" id="heroCtaPrimary">Solicitar vacante</a>
+        <a href="#nosotros" class="btn btn-outline" id="heroCtaSecondary">Conocer el colegio</a>
       </div>
       <div class="hero-stats">
-        <div class="hero-stat"><b>28</b><span>años de trayectoria</span></div>
-        <div class="hero-stat"><b>3</b><span>niveles educativos</span></div>
-        <div class="hero-stat"><b>1:18</b><span>ratio docente / alumno</span></div>
+        <div class="hero-stat"><b id="heroStat1Value">28</b><span id="heroStat1Label">años de trayectoria</span></div>
+        <div class="hero-stat"><b id="heroStat2Value">3</b><span id="heroStat2Label">niveles educativos</span></div>
+        <div class="hero-stat"><b id="heroStat3Value">1:18</b><span id="heroStat3Label">ratio docente / alumno</span></div>
       </div>
     </div>
     <div class="hero-card">
-      <h3>Admisión 2027 abierta</h3>
-      <p>Vacantes disponibles en Inicial, Primaria y Secundaria. Completa el formulario y te contactamos en menos de 24 horas.</p>
-      <a href="#admision" class="btn btn-primary" style="background:var(--color-secondary);">Ver requisitos</a>
+      <h3 id="heroCardTitle">Admisión 2027 abierta</h3>
+      <p id="heroCardText">Vacantes disponibles en Inicial, Primaria y Secundaria. Completa el formulario y te contactamos en menos de 24 horas.</p>
+      <a href="#admision" class="btn btn-primary" id="heroCardCta" style="background:var(--color-secondary);">Ver requisitos</a>
     </div>
   </div>
 </section>
 
-<div class="trust-strip">
+<div class="trust-strip" id="trustStrip">
   <div class="container">
-    <span>Minedu — Código modular 001234</span>
-    <span>Certificación en bilingüismo</span>
-    <span>Convenio con universidades</span>
+    <span id="trust1">Minedu — Código modular 001234</span>
+    <span id="trust2">Certificación en bilingüismo</span>
+    <span id="trust3">Convenio con universidades</span>
   </div>
 </div>
 
@@ -351,14 +351,14 @@ footer{background:var(--color-primary-dark);color:rgba(255,255,255,.72);padding:
 <section id="nosotros">
   <div class="container about-grid">
     <div>
-      <span class="eyebrow">Nosotros</span>
-      <h2>Casi tres décadas acompañando familias</h2>
-      <p style="color:var(--color-text-muted);">Somos una institución educativa comprometida con el desarrollo integral de cada estudiante: académico, emocional y social. Nuestro equipo docente trabaja de la mano con los padres de familia para construir una comunidad basada en la confianza y la mejora continua.</p>
-      <p style="color:var(--color-text-muted);">Contamos con infraestructura moderna, laboratorios equipados y un programa de tutoría personalizada en cada nivel.</p>
-      <div class="stat-cards">
-        <div class="stat-card"><b>620+</b><span>estudiantes activos</span></div>
-        <div class="stat-card"><b>45</b><span>docentes especializados</span></div>
-        <div class="stat-card"><b>94%</b><span>satisfacción de padres</span></div>
+      <span class="eyebrow" id="aboutEyebrow">Nosotros</span>
+      <h2 id="aboutTitle">Casi tres décadas acompañando familias</h2>
+      <p style="color:var(--color-text-muted);" id="aboutBody1">Somos una institución educativa comprometida con el desarrollo integral de cada estudiante: académico, emocional y social. Nuestro equipo docente trabaja de la mano con los padres de familia para construir una comunidad basada en la confianza y la mejora continua.</p>
+      <p style="color:var(--color-text-muted);" id="aboutBody2">Contamos con infraestructura moderna, laboratorios equipados y un programa de tutoría personalizada en cada nivel.</p>
+      <div class="stat-cards" id="aboutStats">
+        <div class="stat-card"><b id="statCard1Value">620+</b><span id="statCard1Label">estudiantes activos</span></div>
+        <div class="stat-card"><b id="statCard2Value">45</b><span id="statCard2Label">docentes especializados</span></div>
+        <div class="stat-card"><b id="statCard3Value">94%</b><span id="statCard3Label">satisfacción de padres</span></div>
       </div>
     </div>
     <div class="about-visual">
@@ -372,9 +372,9 @@ footer{background:var(--color-primary-dark);color:rgba(255,255,255,.72);padding:
 <section id="niveles" class="levels">
   <div class="container">
     <div class="section-head">
-      <span class="eyebrow">Oferta educativa</span>
-      <h2>Un solo colegio, tres etapas de crecimiento</h2>
-      <p>Cada nivel tiene un enfoque pedagógico propio, diseñado según la edad y las necesidades de desarrollo de los estudiantes.</p>
+      <span class="eyebrow" id="levelsEyebrow">Oferta educativa</span>
+      <h2 id="levelsTitle">Un solo colegio, tres etapas de crecimiento</h2>
+      <p id="levelsSubtitle">Cada nivel tiene un enfoque pedagógico propio, diseñado según la edad y las necesidades de desarrollo de los estudiantes.</p>
     </div>
     <div class="levels-grid">
       <div class="level-card">
@@ -400,11 +400,11 @@ footer{background:var(--color-primary-dark);color:rgba(255,255,255,.72);padding:
 </section>
 
 <!-- ============================= POR QUÉ ELEGIRNOS ============================= -->
-<section>
+<section id="whyUsSection">
   <div class="container">
     <div class="section-head">
-      <span class="eyebrow">Por qué elegirnos</span>
-      <h2>Lo que nos hace diferentes</h2>
+      <span class="eyebrow" id="whyEyebrow">Por qué elegirnos</span>
+      <h2 id="whyTitle">Lo que nos hace diferentes</h2>
     </div>
     <div class="why-grid">
       <div class="why-item">
@@ -435,9 +435,9 @@ footer{background:var(--color-primary-dark);color:rgba(255,255,255,.72);padding:
 <section id="galeria" class="gallery">
   <div class="container">
     <div class="section-head">
-      <span class="eyebrow">Vida escolar</span>
-      <h2>Galería</h2>
-      <p>Reemplaza estos bloques por fotografías reales del colegio.</p>
+      <span class="eyebrow" id="galleryEyebrow">Vida escolar</span>
+      <h2 id="galleryTitle">Galería</h2>
+      <p id="gallerySubtitle">Reemplaza estos bloques por fotografías reales del colegio.</p>
     </div>
     <div class="gallery-grid">
       <div class="gph">Patio principal</div>
@@ -454,9 +454,9 @@ footer{background:var(--color-primary-dark);color:rgba(255,255,255,.72);padding:
 <section id="admision" class="admission">
   <div class="container admission-wrap">
     <div class="admission-info">
-      <span class="eyebrow">Admisión 2027</span>
-      <h2>Inicia el proceso de matrícula</h2>
-      <p style="color:var(--color-text-muted);">Completa el formulario y nuestro equipo de admisión se pondrá en contacto contigo en menos de 24 horas hábiles.</p>
+      <span class="eyebrow" id="admissionEyebrow">Admisión 2027</span>
+      <h2 id="admissionTitle">Inicia el proceso de matrícula</h2>
+      <p style="color:var(--color-text-muted);" id="admissionSubtitle">Completa el formulario y nuestro equipo de admisión se pondrá en contacto contigo en menos de 24 horas hábiles.</p>
       <ul class="steps">
         <li><span class="step-num">1</span> Envías tus datos y los del postulante.</li>
         <li><span class="step-num">2</span> Te contactamos para agendar una entrevista.</li>
@@ -514,23 +514,23 @@ footer{background:var(--color-primary-dark);color:rgba(255,255,255,.72);padding:
   <div class="container contact-grid">
     <div>
       <span class="eyebrow">Contacto</span>
-      <h2>Visítanos o escríbenos</h2>
+      <h2 id="contactTitle">Visítanos o escríbenos</h2>
       <ul class="contact-list">
         <li>
           <div class="c-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 10c0 6-9 12-9 12S3 16 3 10a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
-          <div><b>Dirección</b><span>Av. Los Educadores 456, Surco, Lima</span></div>
+          <div><b>Dirección</b><span id="contactAddress">Av. Los Educadores 456, Surco, Lima</span></div>
         </li>
         <li>
           <div class="c-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 16.9v3a2 2 0 01-2.2 2 19.8 19.8 0 01-8.6-3.1 19.5 19.5 0 01-6-6A19.8 19.8 0 012.1 4.2 2 2 0 014.1 2h3a2 2 0 012 1.7c.1.9.3 1.8.6 2.7a2 2 0 01-.4 2.1L8 9.9a16 16 0 006 6l1.4-1.4a2 2 0 012.1-.4c.9.3 1.8.5 2.7.6a2 2 0 011.8 2.2z"/></svg></div>
-          <div><b>Teléfono</b><span>(01) 555-0123 · WhatsApp 987 654 321</span></div>
+          <div><b>Teléfono</b><span id="contactPhone">(01) 555-0123 · WhatsApp 987 654 321</span></div>
         </li>
         <li>
           <div class="c-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h16v16H4z"/><path d="M22 6l-10 7L2 6" stroke-linejoin="round"/></svg></div>
-          <div><b>Correo</b><span>admision@losandes.mejoratucole.com</span></div>
+          <div><b>Correo</b><span id="contactEmail">admision@losandes.mejoratucole.com</span></div>
         </li>
         <li>
           <div class="c-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3" stroke-linecap="round"/></svg></div>
-          <div><b>Horario de atención</b><span>Lunes a viernes, 8:00 a.m. – 5:00 p.m.</span></div>
+          <div><b>Horario de atención</b><span id="contactHours">Lunes a viernes, 8:00 a.m. – 5:00 p.m.</span></div>
         </li>
       </ul>
     </div>
@@ -549,7 +549,7 @@ footer{background:var(--color-primary-dark);color:rgba(255,255,255,.72);padding:
         <span class="brand-mark" id="footerBrandMark" style="background:rgba(255,255,255,.14);">LA</span>
         <span id="footerBrandName">Colegio Los Andes</span>
       </div>
-      <p style="max-width:280px;font-size:.88rem;">Educación inicial, primaria y secundaria en Surco, Lima.</p>
+      <p style="max-width:280px;font-size:.88rem;" id="footerTagline">Educación inicial, primaria y secundaria en Surco, Lima.</p>
     </div>
     <div>
       <h4>Colegio</h4>
@@ -694,9 +694,61 @@ function paintBrandMark(el, cfg, fallbackBg){
   }
 }
 
+// pinta un texto solo si viene un valor real; si no, deja el texto que ya está en el HTML
+function setText(id, val){
+  if(val === undefined || val === null || val === '') return;
+  const el = document.getElementById(id);
+  if(el) el.textContent = val;
+}
+// muestra/oculta un bloque opcional; por defecto (undefined) queda visible
+function setVisible(id, val){
+  const el = document.getElementById(id);
+  if(el) el.style.display = (val === false) ? 'none' : '';
+}
+
+function renderContent(cfg){
+  const c = cfg.content || {};
+  setText('heroEyebrow', c.heroEyebrow);
+  setText('heroTitle', c.heroTitle);
+  setText('heroSubtitle', c.heroSubtitle);
+  setText('heroCtaPrimary', c.heroCtaPrimary);
+  setText('heroCtaSecondary', c.heroCtaSecondary);
+  setText('heroCardTitle', c.heroCardTitle);
+  setText('heroCardText', c.heroCardText);
+  setText('heroCardCta', c.heroCardCta);
+  setText('heroStat1Value', c.heroStat1Value); setText('heroStat1Label', c.heroStat1Label);
+  setText('heroStat2Value', c.heroStat2Value); setText('heroStat2Label', c.heroStat2Label);
+  setText('heroStat3Value', c.heroStat3Value); setText('heroStat3Label', c.heroStat3Label);
+  setText('trust1', c.trust1); setText('trust2', c.trust2); setText('trust3', c.trust3);
+  setText('aboutEyebrow', c.aboutEyebrow);
+  setText('aboutTitle', c.aboutTitle);
+  setText('aboutBody1', c.aboutBody1);
+  setText('aboutBody2', c.aboutBody2);
+  setText('statCard1Value', c.statCard1Value); setText('statCard1Label', c.statCard1Label);
+  setText('statCard2Value', c.statCard2Value); setText('statCard2Label', c.statCard2Label);
+  setText('statCard3Value', c.statCard3Value); setText('statCard3Label', c.statCard3Label);
+  setText('levelsEyebrow', c.levelsEyebrow); setText('levelsTitle', c.levelsTitle); setText('levelsSubtitle', c.levelsSubtitle);
+  setText('whyEyebrow', c.whyEyebrow); setText('whyTitle', c.whyTitle);
+  setText('galleryEyebrow', c.galleryEyebrow); setText('galleryTitle', c.galleryTitle); setText('gallerySubtitle', c.gallerySubtitle);
+  setText('admissionEyebrow', c.admissionEyebrow); setText('admissionTitle', c.admissionTitle); setText('admissionSubtitle', c.admissionSubtitle);
+  setText('contactTitle', c.contactTitle);
+  setText('contactAddress', c.contactAddress);
+  setText('contactPhone', c.contactPhone);
+  setText('contactEmail', cfg.email || c.contactEmail);
+  setText('contactHours', c.contactHours);
+  setText('footerTagline', c.footerTagline);
+
+  const v = cfg.visible || {};
+  setVisible('trustStrip', v.trust);
+  setVisible('aboutStats', v.aboutStats);
+  setVisible('whyUsSection', v.whyUs);
+  setVisible('galeria', v.gallery);
+}
+
 function renderConfig(cfg){
   applyPalette(cfg.colors);
   applyFonts(cfg);
+  renderContent(cfg);
   paintBrandMark(document.getElementById('brandMark'), cfg, 'var(--color-primary)');
   paintBrandMark(document.getElementById('footerBrandMark'), cfg, 'rgba(255,255,255,.14)');
   document.getElementById('brandName').textContent = cfg.schoolName;
@@ -727,6 +779,9 @@ async function loadConfig(){
         customFontBody: row.customFontBody || '',
         whatsappNumber: row.whatsapp,
         web3formsKey: row.web3formsKey,
+        email: row.email || '',
+        content: row.content || {},
+        visible: row.visible || {},
         colors: row.colors
       });
     }
