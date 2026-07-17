@@ -645,8 +645,25 @@ const FONT_PAIRINGS = [
     url:'https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700;800&display=swap' }
 ];
 const loadedFontLinks = new Set();
-function applyFontPairing(id){
-  const pairing = FONT_PAIRINGS.find(f => f.id === id) || FONT_PAIRINGS[0];
+function loadGoogleFont(family){
+  if(!family || loadedFontLinks.has(family)) return;
+  const link = document.createElement('link');
+  link.rel = 'stylesheet';
+  link.href = `https://fonts.googleapis.com/css2?family=${family.trim().replace(/\s+/g,'+')}:wght@400;500;600;700;800&display=swap`;
+  document.head.appendChild(link);
+  loadedFontLinks.add(family);
+}
+
+function applyFonts(cfg){
+  if(cfg.fontMode === 'custom' && cfg.customFontDisplay && cfg.customFontBody){
+    loadGoogleFont(cfg.customFontDisplay);
+    loadGoogleFont(cfg.customFontBody);
+    const r = document.documentElement.style;
+    r.setProperty('--font-display', `'${cfg.customFontDisplay}',serif`);
+    r.setProperty('--font-body', `'${cfg.customFontBody}',sans-serif`);
+    return;
+  }
+  const pairing = FONT_PAIRINGS.find(f => f.id === cfg.fontPairingId) || FONT_PAIRINGS[0];
   if(!loadedFontLinks.has(pairing.id)){
     const link = document.createElement('link');
     link.rel = 'stylesheet';
@@ -679,7 +696,7 @@ function paintBrandMark(el, cfg, fallbackBg){
 
 function renderConfig(cfg){
   applyPalette(cfg.colors);
-  applyFontPairing(cfg.fontPairingId || 'fraunces-public');
+  applyFonts(cfg);
   paintBrandMark(document.getElementById('brandMark'), cfg, 'var(--color-primary)');
   paintBrandMark(document.getElementById('footerBrandMark'), cfg, 'rgba(255,255,255,.14)');
   document.getElementById('brandName').textContent = cfg.schoolName;
@@ -705,6 +722,9 @@ async function loadConfig(){
         initials: initials(row.nombre),
         logo: row.logo || null,
         fontPairingId: row.fontPairingId || 'fraunces-public',
+        fontMode: row.fontMode || 'preset',
+        customFontDisplay: row.customFontDisplay || '',
+        customFontBody: row.customFontBody || '',
         whatsappNumber: row.whatsapp,
         web3formsKey: row.web3formsKey,
         colors: row.colors
