@@ -89,6 +89,7 @@ header{
 .nav-wrap{display:flex;align-items:center;justify-content:space-between;padding:14px 24px;max-width:var(--container);margin:0 auto;}
 .brand{display:flex;align-items:center;gap:12px;font-family:var(--font-display);font-weight:700;font-size:1.15rem;color:var(--color-primary);}
 .brand-mark{
+  overflow:hidden;
   width:42px;height:42px;border-radius:10px;background:var(--color-primary);
   color:#fff;display:flex;align-items:center;justify-content:center;
   font-family:var(--font-display);font-weight:700;font-size:1.05rem;flex-shrink:0;
@@ -545,7 +546,7 @@ footer{background:var(--color-primary-dark);color:rgba(255,255,255,.72);padding:
   <div class="container footer-grid">
     <div>
       <div class="brand" style="color:#fff;margin-bottom:12px;">
-        <span class="brand-mark" style="background:rgba(255,255,255,.14);">LA</span>
+        <span class="brand-mark" id="footerBrandMark" style="background:rgba(255,255,255,.14);">LA</span>
         <span id="footerBrandName">Colegio Los Andes</span>
       </div>
       <p style="max-width:280px;font-size:.88rem;">Educación inicial, primaria y secundaria en Surco, Lima.</p>
@@ -609,6 +610,8 @@ const db = getFirestore(fbApp, DATABASE_ID);
 const FALLBACK_CONFIG = {
   schoolName: "Tu Colegio",
   initials: "TC",
+  logo: null,
+  fontPairingId: "fraunces-public",
   whatsappNumber: "51987654321",
   web3formsKey: "TU_ACCESS_KEY_AQUI",
   colors: { primary:"#1B3A5C", primaryDark:"#12293F", secondary:"#E8A33D", secondaryDark:"#C9861F" }
@@ -629,6 +632,33 @@ function initials(name){
   return name.split(/\s+/).filter(Boolean).slice(0,2).map(w=>w[0]).join('').toUpperCase();
 }
 
+const FONT_PAIRINGS = [
+  { id:'fraunces-public', display:"'Fraunces',serif", body:"'Public Sans',system-ui,sans-serif",
+    url:'https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Public+Sans:wght@400;500;600;700;800&display=swap' },
+  { id:'playfair-inter', display:"'Playfair Display',serif", body:"'Inter',system-ui,sans-serif",
+    url:'https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap' },
+  { id:'poppins', display:"'Poppins',sans-serif", body:"'Poppins',sans-serif",
+    url:'https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap' },
+  { id:'merriweather-source', display:"'Merriweather',serif", body:"'Source Sans 3',system-ui,sans-serif",
+    url:'https://fonts.googleapis.com/css2?family=Merriweather:wght@600;700;900&family=Source+Sans+3:wght@400;500;600;700&display=swap' },
+  { id:'spacegrotesk-inter', display:"'Space Grotesk',sans-serif", body:"'Inter',system-ui,sans-serif",
+    url:'https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700;800&display=swap' }
+];
+const loadedFontLinks = new Set();
+function applyFontPairing(id){
+  const pairing = FONT_PAIRINGS.find(f => f.id === id) || FONT_PAIRINGS[0];
+  if(!loadedFontLinks.has(pairing.id)){
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = pairing.url;
+    document.head.appendChild(link);
+    loadedFontLinks.add(pairing.id);
+  }
+  const r = document.documentElement.style;
+  r.setProperty('--font-display', pairing.display);
+  r.setProperty('--font-body', pairing.body);
+}
+
 function applyPalette(c){
   const r = document.documentElement.style;
   r.setProperty('--color-primary', c.primary);
@@ -637,9 +667,21 @@ function applyPalette(c){
   r.setProperty('--color-secondary-dark', c.secondaryDark);
 }
 
+function paintBrandMark(el, cfg, fallbackBg){
+  if(cfg.logo){
+    el.style.background = 'transparent';
+    el.innerHTML = `<img src="${cfg.logo}" alt="${cfg.schoolName}" style="width:100%;height:100%;object-fit:contain;">`;
+  } else {
+    el.style.background = fallbackBg;
+    el.textContent = cfg.initials || initials(cfg.schoolName);
+  }
+}
+
 function renderConfig(cfg){
   applyPalette(cfg.colors);
-  document.getElementById('brandMark').textContent = cfg.initials || initials(cfg.schoolName);
+  applyFontPairing(cfg.fontPairingId || 'fraunces-public');
+  paintBrandMark(document.getElementById('brandMark'), cfg, 'var(--color-primary)');
+  paintBrandMark(document.getElementById('footerBrandMark'), cfg, 'rgba(255,255,255,.14)');
   document.getElementById('brandName').textContent = cfg.schoolName;
   document.getElementById('footerBrandName').textContent = cfg.schoolName;
   document.title = cfg.schoolName + " — Educación con propósito";
@@ -661,6 +703,8 @@ async function loadConfig(){
       renderConfig({
         schoolName: row.nombre,
         initials: initials(row.nombre),
+        logo: row.logo || null,
+        fontPairingId: row.fontPairingId || 'fraunces-public',
         whatsappNumber: row.whatsapp,
         web3formsKey: row.web3formsKey,
         colors: row.colors
