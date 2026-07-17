@@ -579,7 +579,6 @@ footer{background:var(--color-primary-dark);color:rgba(255,255,255,.72);padding:
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
 import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
 
-// TODO: mismo firebaseConfig que panel-colegios.html (mismo proyecto de Firebase)
 const FIREBASE_CONFIG = {
   apiKey: "AIzaSyCq-c3ndDviAHXQ3uQJrgJEGwBL22xJO4I",
   authDomain: "gen-lang-client-0504182272.firebaseapp.com",
@@ -611,7 +610,7 @@ const FALLBACK_CONFIG = {
   schoolName: "Tu Colegio",
   initials: "TC",
   whatsappNumber: "51987654321",
-  formEndpoint: "https://formspree.io/f/REEMPLAZAR_CON_TU_ID",
+  web3formsKey: "TU_ACCESS_KEY_AQUI",
   colors: { primary:"#1B3A5C", primaryDark:"#12293F", secondary:"#E8A33D", secondaryDark:"#C9861F" }
 };
 
@@ -663,7 +662,7 @@ async function loadConfig(){
         schoolName: row.nombre,
         initials: initials(row.nombre),
         whatsappNumber: row.whatsapp,
-        formEndpoint: row.formEndpoint,
+        web3formsKey: row.web3formsKey,
         colors: row.colors
       });
     }
@@ -688,18 +687,21 @@ form.addEventListener('submit', async (e)=>{
   try{
     const cfg = window.CONFIG || FALLBACK_CONFIG;
     const data = new FormData(form);
-    data.append('_subject', `Nueva solicitud de admisión — ${cfg.schoolName}`);
-    const res = await fetch(cfg.formEndpoint, {
+    data.append('access_key', cfg.web3formsKey);
+    data.append('subject', `Nueva solicitud de admisión — ${cfg.schoolName}`);
+    data.append('from_name', cfg.schoolName);
+    const res = await fetch('https://api.web3forms.com/submit', {
       method: 'POST',
       body: data,
       headers: { 'Accept': 'application/json' }
     });
-    if(res.ok){
+    const result = await res.json();
+    if(res.ok && result.success){
       status.textContent = '¡Listo! Hemos recibido tu solicitud, te contactaremos pronto.';
       status.classList.add('ok');
       form.reset();
     } else {
-      throw new Error('No se pudo enviar');
+      throw new Error(result.message || 'No se pudo enviar');
     }
   }catch(err){
     status.textContent = 'No pudimos enviar el formulario. Intenta nuevamente o escríbenos por WhatsApp.';
