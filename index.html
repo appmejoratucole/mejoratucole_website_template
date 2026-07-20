@@ -112,46 +112,32 @@ nav.links a:hover{color:var(--color-primary);}
   background:radial-gradient(circle,var(--color-secondary) 0%,transparent 70%);
   opacity:.22;
 }
-.hero-inner{position:relative;display:grid;grid-template-columns:1fr;gap:56px;align-items:center;}
+.hero-inner{position:relative;display:grid;grid-template-columns:1fr;gap:56px;align-items:center;justify-items:center;text-align:center;}
 .hero h1{font-size:clamp(2.2rem,4.2vw,3.4rem);}
-.hero p.lede{font-size:1.15rem;color:rgba(255,255,255,.82);max-width:480px;}
-.hero-actions{display:flex;gap:14px;flex-wrap:wrap;margin-top:30px;}
-.hero-stats{display:flex;gap:32px;margin-top:56px;flex-wrap:wrap;}
+.hero p.lede{font-size:1.15rem;color:rgba(255,255,255,.82);max-width:480px;margin-left:auto;margin-right:auto;}
+.hero-actions{display:flex;gap:14px;flex-wrap:wrap;margin-top:30px;justify-content:center;}
+.hero-stats{display:flex;gap:16px;margin-top:56px;flex-wrap:wrap;justify-content:center;}
+.hero-stat{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);border-radius:var(--radius-md);padding:16px 26px;}
 .hero-stat b{display:block;font-family:var(--font-display);font-size:1.9rem;color:var(--color-secondary);}
 .hero-stat span{font-size:.82rem;color:rgba(255,255,255,.7);}
-.hero-card{
-  background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);
-  border-radius:var(--radius-lg);padding:28px;backdrop-filter:blur(6px);
-}
-.hero-card h3{color:#fff;font-size:1.05rem;margin-bottom:6px;}
-.hero-card p{color:rgba(255,255,255,.75);font-size:.9rem;margin-bottom:18px;}
-
-/* selector de paleta — elemento demostrativo */
-.palette-picker{display:flex;gap:10px;align-items:center;flex-wrap:wrap;}
-.swatch{
-  width:34px;height:34px;border-radius:50%;cursor:pointer;border:2px solid rgba(255,255,255,.5);
-  display:flex;align-items:center;justify-content:center;transition:transform .15s;
-  padding:0;
-}
-.swatch:hover{transform:scale(1.08);}
-.swatch.active{border-color:#fff;box-shadow:0 0 0 2px var(--color-secondary);}
-.swatch svg{width:14px;height:14px;color:#fff;display:none;}
-.swatch.active svg{display:block;}
 
 /* ---------- Franja de confianza ---------- */
 .trust-strip{background:var(--color-surface);border-bottom:1px solid var(--color-border);padding:22px 0;}
 .trust-strip .container{display:flex;justify-content:center;gap:48px;flex-wrap:wrap;color:var(--color-text-muted);font-size:.85rem;font-weight:600;letter-spacing:.02em;}
 
 /* ---------- Nosotros ---------- */
-.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start;}
-.about-visual{
-  aspect-ratio:4/3;border-radius:var(--radius-lg);
-  background:linear-gradient(135deg,var(--color-primary),var(--color-secondary));
-  display:flex;align-items:center;justify-content:center;color:#fff;
+section#nosotros{position:relative;overflow:hidden;}
+section#nosotros::before{
+  content:"";position:absolute;left:-160px;top:-80px;width:420px;height:420px;
+  background:radial-gradient(circle,var(--color-primary) 0%,transparent 70%);
+  opacity:.06;pointer-events:none;
 }
 .stat-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:36px;}
-.stat-card{background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-md);padding:20px;text-align:center;box-shadow:var(--shadow-card);}
-.stat-card b{display:block;font-family:var(--font-display);font-size:1.6rem;color:var(--color-primary);}
+.stat-card{
+  background:var(--color-surface);border:1px solid var(--color-border);border-top:3px solid var(--color-secondary);
+  border-radius:var(--radius-md);padding:22px 20px;text-align:center;box-shadow:var(--shadow-card);
+}
+.stat-card b{display:block;font-family:var(--font-display);font-size:1.7rem;color:var(--color-primary);}
 .stat-card span{font-size:.78rem;color:var(--color-text-muted);}
 
 /* ---------- Niveles ---------- */
@@ -269,7 +255,7 @@ footer{background:var(--color-primary-dark);color:rgba(255,255,255,.72);padding:
 
 /* ---------- Responsive ---------- */
 @media (max-width:960px){
-  .hero-inner,.about-grid,.admission-wrap,.contact-grid{grid-template-columns:1fr;}
+  .admission-wrap,.contact-grid{grid-template-columns:1fr;}
   .levels-grid{grid-template-columns:1fr 1fr;}
   .why-grid{grid-template-columns:1fr 1fr;}
   .footer-grid{grid-template-columns:1fr 1fr;}
