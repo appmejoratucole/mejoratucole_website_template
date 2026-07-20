@@ -344,8 +344,8 @@ footer{background:var(--color-primary-dark);color:rgba(255,255,255,.72);padding:
 
 <!-- ============================= NOSOTROS ============================= -->
 <section id="nosotros">
-  <div class="container about-grid">
-    <div>
+  <div class="container">
+    <div style="max-width:720px;">
       <span class="eyebrow" id="aboutEyebrow">Nosotros</span>
       <h2 id="aboutTitle">Casi tres décadas acompañando familias</h2>
       <p style="color:var(--color-text-muted);" id="aboutBody1">Somos una institución educativa comprometida con el desarrollo integral de cada estudiante: académico, emocional y social. Nuestro equipo docente trabaja de la mano con los padres de familia para construir una comunidad basada en la confianza y la mejora continua.</p>
@@ -355,10 +355,6 @@ footer{background:var(--color-primary-dark);color:rgba(255,255,255,.72);padding:
         <div class="stat-card"><b id="statCard2Value">45</b><span id="statCard2Label">docentes especializados</span></div>
         <div class="stat-card"><b id="statCard3Value">94%</b><span id="statCard3Label">satisfacción de padres</span></div>
       </div>
-    </div>
-    <div class="about-visual">
-      <!-- Reemplazar por foto real del colegio -->
-      <span style="font-family:var(--font-display);font-size:1.1rem;opacity:.85;">[ Fotografía del colegio ]</span>
     </div>
   </div>
 </section>
@@ -481,8 +477,13 @@ footer{background:var(--color-primary-dark);color:rgba(255,255,255,.72);padding:
             <input type="text" id="studentName" name="studentName" required>
           </div>
           <div class="field">
-            <label for="grade">Grado al que postula</label>
-            <select id="grade" name="grade" required>
+            <label for="studentBirthdate">Fecha de nacimiento</label>
+            <input type="date" id="studentBirthdate" name="studentBirthdate" required>
+          </div>
+        </div>
+        <div class="field">
+          <label for="grade">Grado al que postula</label>
+          <select id="grade" name="grade" required>
               <option value="">Selecciona un grado</option>
               <optgroup label="Inicial" id="ogInicial">
                 <option>Inicial 3 años</option>
@@ -505,7 +506,6 @@ footer{background:var(--color-primary-dark);color:rgba(255,255,255,.72);padding:
                 <option>5° de Secundaria</option>
               </optgroup>
             </select>
-          </div>
         </div>
         <div class="field">
           <label for="intake">Mes de ingreso</label>
