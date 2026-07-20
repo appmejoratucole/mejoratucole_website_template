@@ -564,9 +564,14 @@ footer{background:var(--color-primary-dark);color:rgba(255,255,255,.72);padding:
       <h4>Admisión</h4>
       <ul><li><a href="#admision">Postular</a></li><li><a href="#contacto">Contacto</a></li></ul>
     </div>
-    <div>
+    <div id="socialColumn">
       <h4>Síguenos</h4>
-      <ul><li><a href="#">Facebook</a></li><li><a href="#">Instagram</a></li><li><a href="#">TikTok</a></li></ul>
+      <ul>
+        <li id="socialFacebookItem"><a href="#" id="socialFacebookLink" target="_blank" rel="noopener">Facebook</a></li>
+        <li id="socialInstagramItem"><a href="#" id="socialInstagramLink" target="_blank" rel="noopener">Instagram</a></li>
+        <li id="socialTiktokItem"><a href="#" id="socialTiktokLink" target="_blank" rel="noopener">TikTok</a></li>
+        <li id="socialLinkedinItem"><a href="#" id="socialLinkedinLink" target="_blank" rel="noopener">LinkedIn</a></li>
+      </ul>
     </div>
   </div>
   <div class="container footer-bottom">
@@ -722,9 +727,27 @@ function renderMap(mapQuery){
   el.style.padding = '0';
 }
 
+// pinta los links de redes sociales que el colegio activó y completó con una URL
+function renderSocialLinks(c, v){
+  const NETWORKS = ['Facebook','Instagram','Tiktok','Linkedin'];
+  let anyVisible = false;
+  NETWORKS.forEach(net=>{
+    const url = c['social' + net];
+    const isOn = v['social' + net] === true && !!url; // opt-in: apagado salvo que se marque explícitamente
+    setVisible('social' + net + 'Item', isOn);
+    if(isOn){
+      anyVisible = true;
+      const link = document.getElementById('social' + net + 'Link');
+      if(link) link.href = url;
+    }
+  });
+  setVisible('socialColumn', anyVisible);
+}
+
 function renderContent(cfg){
   const c = cfg.content || {};
   renderMap(c.mapQuery || c.contactAddress);
+  renderSocialLinks(c, cfg.visible || {});
   setText('heroEyebrow', c.heroEyebrow);
   setText('heroTitle', c.heroTitle);
   setText('heroSubtitle', c.heroSubtitle);
@@ -792,7 +815,7 @@ function renderConfig(cfg){
   document.getElementById('footerBrandName').textContent = cfg.schoolName;
   document.title = cfg.schoolName + " — Educación con propósito";
   const wa = document.getElementById('waFloat');
-  wa.href = `https://wa.me/${cfg.whatsappNumber}?text=${encodeURIComponent('Hola, quisiera información sobre las vacantes del colegio.')}`;
+  wa.href = `https://wa.me/${cfg.whatsappNumber}?text=${encodeURIComponent(cfg.whatsappMessage || 'Hola, quisiera información sobre las vacantes del colegio.')}`;
   window.CONFIG = cfg; // el formulario de admisión lo usa para saber a dónde enviar
 }
 
@@ -815,6 +838,7 @@ async function loadConfig(){
         customFontDisplay: row.customFontDisplay || '',
         customFontBody: row.customFontBody || '',
         whatsappNumber: row.whatsapp,
+        whatsappMessage: row.content && row.content.whatsappMessage,
         web3formsKey: row.web3formsKey,
         email: row.email || '',
         content: row.content || {},
