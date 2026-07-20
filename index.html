@@ -112,7 +112,7 @@ nav.links a:hover{color:var(--color-primary);}
   background:radial-gradient(circle,var(--color-secondary) 0%,transparent 70%);
   opacity:.22;
 }
-.hero-inner{position:relative;display:grid;grid-template-columns:1.1fr .9fr;gap:56px;align-items:center;}
+.hero-inner{position:relative;display:grid;grid-template-columns:1fr;gap:56px;align-items:center;}
 .hero h1{font-size:clamp(2.2rem,4.2vw,3.4rem);}
 .hero p.lede{font-size:1.15rem;color:rgba(255,255,255,.82);max-width:480px;}
 .hero-actions{display:flex;gap:14px;flex-wrap:wrap;margin-top:30px;}
@@ -156,7 +156,7 @@ nav.links a:hover{color:var(--color-primary);}
 
 /* ---------- Niveles ---------- */
 .levels{background:var(--color-surface);}
-.levels-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+.levels-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:24px;}
 .level-card{
   border:1px solid var(--color-border);border-radius:var(--radius-lg);padding:32px 28px;
   transition:transform .18s ease, box-shadow .18s ease;
@@ -171,7 +171,7 @@ nav.links a:hover{color:var(--color-primary);}
 .level-age{font-size:.78rem;font-weight:700;color:var(--color-secondary-dark);letter-spacing:.04em;}
 
 /* ---------- Por qué elegirnos ---------- */
-.why-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:28px;}
+.why-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:28px;}
 .why-item{text-align:left;}
 .why-icon{width:44px;height:44px;color:var(--color-secondary-dark);margin-bottom:14px;}
 .why-item h4{font-size:1.02rem;color:var(--color-primary);}
@@ -180,7 +180,7 @@ nav.links a:hover{color:var(--color-primary);}
 /* ---------- Galería ---------- */
 .gallery{background:var(--color-surface);}
 .gallery-grid{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:150px;gap:14px;}
-.gallery-grid > div:nth-child(1){grid-column:span 2;grid-row:span 2;}
+.gallery-grid > *:nth-child(1){grid-column:span 2;grid-row:span 2;}
 .gph{
   border-radius:var(--radius-md);
   background:linear-gradient(150deg, color-mix(in srgb, var(--color-primary) 78%, black), var(--color-primary));
@@ -274,7 +274,7 @@ footer{background:var(--color-primary-dark);color:rgba(255,255,255,.72);padding:
   .why-grid{grid-template-columns:1fr 1fr;}
   .footer-grid{grid-template-columns:1fr 1fr;}
   .gallery-grid{grid-template-columns:repeat(2,1fr);}
-  .gallery-grid > div:nth-child(1){grid-column:span 2;}
+  .gallery-grid > *:nth-child(1){grid-column:span 2;}
 }
 @media (max-width:720px){
   nav.links{display:none;}
@@ -317,7 +317,7 @@ footer{background:var(--color-primary-dark);color:rgba(255,255,255,.72);padding:
 <!-- ============================= HERO ============================= -->
 <section class="hero" style="padding-top:96px;">
   <div class="container hero-inner">
-    <div>
+    <div style="max-width:640px;">
       <span class="eyebrow" id="heroEyebrow" style="color:var(--color-secondary);">Educación inicial · primaria · secundaria</span>
       <h1 id="heroTitle">Formamos personas, no solo alumnos.</h1>
       <p class="lede" id="heroSubtitle">Un colegio pensado para que cada estudiante descubra su propio camino, con acompañamiento cercano a las familias desde el primer día.</p>
@@ -330,11 +330,6 @@ footer{background:var(--color-primary-dark);color:rgba(255,255,255,.72);padding:
         <div class="hero-stat"><b id="heroStat2Value">3</b><span id="heroStat2Label">niveles educativos</span></div>
         <div class="hero-stat"><b id="heroStat3Value">1:18</b><span id="heroStat3Label">ratio docente / alumno</span></div>
       </div>
-    </div>
-    <div class="hero-card">
-      <h3 id="heroCardTitle">Admisión 2027 abierta</h3>
-      <p id="heroCardText">Vacantes disponibles en Inicial, Primaria y Secundaria. Completa el formulario y te contactamos en menos de 24 horas.</p>
-      <a href="#admision" class="btn btn-primary" id="heroCardCta" style="background:var(--color-secondary);">Ver requisitos</a>
     </div>
   </div>
 </section>
@@ -376,20 +371,20 @@ footer{background:var(--color-primary-dark);color:rgba(255,255,255,.72);padding:
       <h2 id="levelsTitle">Un solo colegio, tres etapas de crecimiento</h2>
       <p id="levelsSubtitle">Cada nivel tiene un enfoque pedagógico propio, diseñado según la edad y las necesidades de desarrollo de los estudiantes.</p>
     </div>
-    <div class="levels-grid">
-      <div class="level-card">
+    <div class="levels-grid" id="levelsGrid">
+      <div class="level-card" id="levelCardInicial">
         <div class="level-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.5-7 8-7s8 3 8 7" stroke-linecap="round"/></svg></div>
         <span class="level-age">3 A 5 AÑOS</span>
         <h3>Inicial</h3>
         <p>Aprendizaje a través del juego, estimulación temprana y desarrollo socioemocional.</p>
       </div>
-      <div class="level-card">
+      <div class="level-card" id="levelCardPrimaria">
         <div class="level-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 6h16M4 12h10M4 18h16" stroke-linecap="round"/></svg></div>
         <span class="level-age">6 A 11 AÑOS</span>
         <h3>Primaria</h3>
         <p>Formación de hábitos de estudio, pensamiento lógico y competencias comunicativas.</p>
       </div>
-      <div class="level-card">
+      <div class="level-card" id="levelCardSecundaria">
         <div class="level-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3l9 5-9 5-9-5 9-5z"/><path d="M6 10.5V16c0 1.5 2.7 3 6 3s6-1.5 6-3v-5.5" stroke-linecap="round"/></svg></div>
         <span class="level-age">12 A 16 AÑOS</span>
         <h3>Secundaria</h3>
@@ -406,26 +401,26 @@ footer{background:var(--color-primary-dark);color:rgba(255,255,255,.72);padding:
       <span class="eyebrow" id="whyEyebrow">Por qué elegirnos</span>
       <h2 id="whyTitle">Lo que nos hace diferentes</h2>
     </div>
-    <div class="why-grid">
-      <div class="why-item">
+    <div class="why-grid" id="whyGrid">
+      <div class="why-item" id="whyItem1">
         <svg class="why-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 2l3 6 6 1-4.5 4.5L18 20l-6-3-6 3 1.5-6.5L3 9l6-1 3-6z"/></svg>
-        <h4>Docentes certificados</h4>
-        <p>Equipo con formación continua y especialización por área.</p>
+        <h4 id="why1Title">Docentes certificados</h4>
+        <p id="why1Desc">Equipo con formación continua y especialización por área.</p>
       </div>
-      <div class="why-item">
+      <div class="why-item" id="whyItem2">
         <svg class="why-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 12l6 6L21 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        <h4>Seguimiento personalizado</h4>
-        <p>Reportes periódicos y tutoría individual para cada estudiante.</p>
+        <h4 id="why2Title">Seguimiento personalizado</h4>
+        <p id="why2Desc">Reportes periódicos y tutoría individual para cada estudiante.</p>
       </div>
-      <div class="why-item">
+      <div class="why-item" id="whyItem3">
         <svg class="why-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M8 2v4M16 2v4M3 10h18" stroke-linecap="round"/></svg>
-        <h4>Comunicación constante</h4>
-        <p>Canal directo por WhatsApp con dirección y tutoría.</p>
+        <h4 id="why3Title">Comunicación constante</h4>
+        <p id="why3Desc">Canal directo por WhatsApp con dirección y tutoría.</p>
       </div>
-      <div class="why-item">
+      <div class="why-item" id="whyItem4">
         <svg class="why-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 21V9l8-6 8 6v12" stroke-linejoin="round"/><path d="M9 21v-6h6v6" /></svg>
-        <h4>Infraestructura moderna</h4>
-        <p>Laboratorios, biblioteca y espacios deportivos equipados.</p>
+        <h4 id="why4Title">Infraestructura moderna</h4>
+        <p id="why4Desc">Laboratorios, biblioteca y espacios deportivos equipados.</p>
       </div>
     </div>
   </div>
@@ -439,7 +434,7 @@ footer{background:var(--color-primary-dark);color:rgba(255,255,255,.72);padding:
       <h2 id="galleryTitle">Galería</h2>
       <p id="gallerySubtitle">Reemplaza estos bloques por fotografías reales del colegio.</p>
     </div>
-    <div class="gallery-grid">
+    <div class="gallery-grid" id="galleryGrid">
       <div class="gph">Patio principal</div>
       <div class="gph">Laboratorio</div>
       <div class="gph">Biblioteca</div>
@@ -713,9 +708,6 @@ function renderContent(cfg){
   setText('heroSubtitle', c.heroSubtitle);
   setText('heroCtaPrimary', c.heroCtaPrimary);
   setText('heroCtaSecondary', c.heroCtaSecondary);
-  setText('heroCardTitle', c.heroCardTitle);
-  setText('heroCardText', c.heroCardText);
-  setText('heroCardCta', c.heroCardCta);
   setText('heroStat1Value', c.heroStat1Value); setText('heroStat1Label', c.heroStat1Label);
   setText('heroStat2Value', c.heroStat2Value); setText('heroStat2Label', c.heroStat2Label);
   setText('heroStat3Value', c.heroStat3Value); setText('heroStat3Label', c.heroStat3Label);
@@ -729,6 +721,10 @@ function renderContent(cfg){
   setText('statCard3Value', c.statCard3Value); setText('statCard3Label', c.statCard3Label);
   setText('levelsEyebrow', c.levelsEyebrow); setText('levelsTitle', c.levelsTitle); setText('levelsSubtitle', c.levelsSubtitle);
   setText('whyEyebrow', c.whyEyebrow); setText('whyTitle', c.whyTitle);
+  setText('why1Title', c.why1Title); setText('why1Desc', c.why1Desc);
+  setText('why2Title', c.why2Title); setText('why2Desc', c.why2Desc);
+  setText('why3Title', c.why3Title); setText('why3Desc', c.why3Desc);
+  setText('why4Title', c.why4Title); setText('why4Desc', c.why4Desc);
   setText('galleryEyebrow', c.galleryEyebrow); setText('galleryTitle', c.galleryTitle); setText('gallerySubtitle', c.gallerySubtitle);
   setText('admissionEyebrow', c.admissionEyebrow); setText('admissionTitle', c.admissionTitle); setText('admissionSubtitle', c.admissionSubtitle);
   setText('contactTitle', c.contactTitle);
@@ -741,7 +737,23 @@ function renderContent(cfg){
   const v = cfg.visible || {};
   setVisible('trustStrip', v.trust);
   setVisible('aboutStats', v.aboutStats);
+
+  setVisible('levelCardInicial', v.levelInicial);
+  setVisible('levelCardPrimaria', v.levelPrimaria);
+  setVisible('levelCardSecundaria', v.levelSecundaria);
+  const anyLevel = v.levelInicial !== false || v.levelPrimaria !== false || v.levelSecundaria !== false;
+  const levelsSection = document.getElementById('niveles');
+  if(levelsSection) levelsSection.style.display = anyLevel ? '' : 'none';
+
   setVisible('whyUsSection', v.whyUs);
+  setVisible('whyItem1', v.why1);
+  setVisible('whyItem2', v.why2);
+  setVisible('whyItem3', v.why3);
+  setVisible('whyItem4', v.why4);
+  const anyWhy = v.why1 !== false || v.why2 !== false || v.why3 !== false || v.why4 !== false;
+  const whyUsSection = document.getElementById('whyUsSection');
+  if(whyUsSection && v.whyUs !== false) whyUsSection.style.display = anyWhy ? '' : 'none';
+
   setVisible('galeria', v.gallery);
 }
 
