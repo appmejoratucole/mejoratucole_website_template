@@ -575,7 +575,7 @@ footer{background:var(--color-primary-dark);color:rgba(255,255,255,.72);padding:
     </div>
   </div>
   <div class="container footer-bottom">
-    <span>© 2026 Colegio Los Andes. Todos los derechos reservados.</span>
+    <span id="footerCopyright">© 2026 Colegio Los Andes. Todos los derechos reservados.</span>
     <span>Sitio creado por <a href="https://mejoratucole.com" target="_blank" rel="noopener">mejoratucole.com</a></span>
   </div>
 </footer>
@@ -813,6 +813,7 @@ function renderConfig(cfg){
   paintBrandMark(document.getElementById('footerBrandMark'), cfg, 'rgba(255,255,255,.14)');
   document.getElementById('brandName').textContent = cfg.schoolName;
   document.getElementById('footerBrandName').textContent = cfg.schoolName;
+  document.getElementById('footerCopyright').textContent = `© ${new Date().getFullYear()} ${cfg.schoolName}. Todos los derechos reservados.`;
   document.title = cfg.schoolName + " — Educación con propósito";
   const wa = document.getElementById('waFloat');
   wa.href = `https://wa.me/${cfg.whatsappNumber}?text=${encodeURIComponent(cfg.whatsappMessage || 'Hola, quisiera información sobre las vacantes del colegio.')}`;
