@@ -484,13 +484,37 @@ footer{background:var(--color-primary-dark);color:rgba(255,255,255,.72);padding:
             <label for="grade">Grado al que postula</label>
             <select id="grade" name="grade" required>
               <option value="">Selecciona un grado</option>
-              <option>Inicial 3 años</option>
-              <option>Inicial 4 años</option>
-              <option>Inicial 5 años</option>
-              <option>1° a 6° de Primaria</option>
-              <option>1° a 5° de Secundaria</option>
+              <optgroup label="Inicial" id="ogInicial">
+                <option>Inicial 3 años</option>
+                <option>Inicial 4 años</option>
+                <option>Inicial 5 años</option>
+              </optgroup>
+              <optgroup label="Primaria" id="ogPrimaria">
+                <option>1° de Primaria</option>
+                <option>2° de Primaria</option>
+                <option>3° de Primaria</option>
+                <option>4° de Primaria</option>
+                <option>5° de Primaria</option>
+                <option>6° de Primaria</option>
+              </optgroup>
+              <optgroup label="Secundaria" id="ogSecundaria">
+                <option>1° de Secundaria</option>
+                <option>2° de Secundaria</option>
+                <option>3° de Secundaria</option>
+                <option>4° de Secundaria</option>
+                <option>5° de Secundaria</option>
+              </optgroup>
             </select>
           </div>
+        </div>
+        <div class="field">
+          <label for="intake">Mes de ingreso</label>
+          <select id="intake" name="intake" required>
+            <option value="">Selecciona un mes</option>
+            <option>Marzo 2027</option>
+            <option>Mayo 2027</option>
+            <option>Agosto 2027</option>
+          </select>
         </div>
         <div class="field">
           <label for="message">Mensaje (opcional)</label>
@@ -529,7 +553,7 @@ footer{background:var(--color-primary-dark);color:rgba(255,255,255,.72);padding:
         </li>
       </ul>
     </div>
-    <div class="map-placeholder">
+    <div class="map-placeholder" id="mapPlaceholder">
       <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 20l-6-3V4l6 3 6-3 6 3v13l-6-3-6 3z"/></svg>
       <span>Aquí se inserta el mapa de Google Maps<br>con la ubicación real del colegio</span>
     </div>
@@ -701,8 +725,20 @@ function setVisible(id, val){
   if(el) el.style.display = (val === false) ? 'none' : '';
 }
 
+// arma el mapa real sin necesitar API key, usando el truco de "output=embed"
+function renderMap(mapQuery){
+  const el = document.getElementById('mapPlaceholder');
+  if(!el || !mapQuery) return; // sin dato, se queda el bloque de ejemplo
+  el.innerHTML = `<iframe src="https://www.google.com/maps?q=${encodeURIComponent(mapQuery)}&output=embed"
+    style="width:100%;height:100%;border:0;border-radius:var(--radius-lg);" loading="lazy"
+    referrerpolicy="no-referrer-when-downgrade"></iframe>`;
+  el.style.border = 'none';
+  el.style.padding = '0';
+}
+
 function renderContent(cfg){
   const c = cfg.content || {};
+  renderMap(c.mapQuery || c.contactAddress);
   setText('heroEyebrow', c.heroEyebrow);
   setText('heroTitle', c.heroTitle);
   setText('heroSubtitle', c.heroSubtitle);
@@ -741,6 +777,9 @@ function renderContent(cfg){
   setVisible('levelCardInicial', v.levelInicial);
   setVisible('levelCardPrimaria', v.levelPrimaria);
   setVisible('levelCardSecundaria', v.levelSecundaria);
+  setVisible('ogInicial', v.levelInicial);
+  setVisible('ogPrimaria', v.levelPrimaria);
+  setVisible('ogSecundaria', v.levelSecundaria);
   const anyLevel = v.levelInicial !== false || v.levelPrimaria !== false || v.levelSecundaria !== false;
   const levelsSection = document.getElementById('niveles');
   if(levelsSection) levelsSection.style.display = anyLevel ? '' : 'none';
