@@ -286,9 +286,9 @@ footer{background:var(--color-primary-dark);color:rgba(255,255,255,.72);padding:
     </a>
     <nav class="links">
       <a href="#nosotros">Nosotros</a>
-      <a href="#niveles">Niveles</a>
+      <a href="#niveles" id="navNivelesLink">Niveles</a>
       <a href="#admision">Admisión</a>
-      <a href="#galeria">Galería</a>
+      <a href="#galeria" id="navGaleriaLink">Galería</a>
       <a href="#contacto">Contacto</a>
     </nav>
     <div class="header-cta">
@@ -558,7 +558,7 @@ footer{background:var(--color-primary-dark);color:rgba(255,255,255,.72);padding:
     </div>
     <div>
       <h4>Colegio</h4>
-      <ul><li><a href="#nosotros">Nosotros</a></li><li><a href="#niveles">Niveles</a></li><li><a href="#galeria">Galería</a></li></ul>
+      <ul><li><a href="#nosotros">Nosotros</a></li><li><a href="#niveles" id="footerNivelesLink">Niveles</a></li><li><a href="#galeria" id="footerGaleriaLink">Galería</a></li></ul>
     </div>
     <div>
       <h4>Admisión</h4>
@@ -803,6 +803,11 @@ function renderContent(cfg){
   if(whyUsSection && v.whyUs !== false) whyUsSection.style.display = anyWhy ? '' : 'none';
 
   setVisible('galeria', v.gallery);
+  setVisible('navGaleriaLink', v.gallery);
+  setVisible('footerGaleriaLink', v.gallery);
+
+  setVisible('navNivelesLink', anyLevel);
+  setVisible('footerNivelesLink', anyLevel);
 }
 
 function renderConfig(cfg){
